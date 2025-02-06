@@ -1,6 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Navigation Menu Toggle
+    // --- Floating Elements for ALL Sections ---
+    const sections = document.querySelectorAll('section'); // Select ALL section elements
+
+    sections.forEach(heroSection => { // Now loop through each section
+        if (heroSection) {
+            const numElements = 20; // Number of floating elements per section
+            for (let i = 0; i < numElements; i++) {
+                const el = document.createElement('div');
+                el.classList.add('floating-element');
+                heroSection.appendChild(el);
+
+                // Randomize size, position, and animation delay (no change needed here)
+                const size = Math.random() * 30 + 20; // Size between 20px and 50px
+                const xPos = Math.random() * 100;
+                const yPos = Math.random() * 100;
+                const animDelay = Math.random() * 5; // Animation delay up to 5s
+                const animDuration = Math.random() * 10 + 15; // Animation duration 15s to 25s
+
+                el.style.width = `${size}px`;
+                el.style.height = `${size}px`;
+                el.style.left = `${xPos}%`;
+                el.style.top = `${yPos}%`;
+                el.style.animationDelay = `-${animDelay}s`; // Negative delay to start at different points
+                el.style.animationDuration = `${animDuration}s`;
+            }
+        }
+    });
+    // --- End Floating Elements for Hero Background ---
     const menuBtn = document.querySelector('.menu-btn');
     const navLinks = document.querySelector('.nav-links');
 
@@ -80,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const liveLink = document.getElementById('live-link');
     const githubLink = document.getElementById('github-link');
 
-    const projectData = { 
+    const projectData = {
         music: {
             title: 'LYDONIX - YouTube-Based Music Player',
             overview: 'LYDONIX is a web application designed to provide users with a seamless music streaming experience by leveraging YouTube as its primary content source. The platform allows users to search for and play music videos directly from YouTube while offering an intuitive and modern interface. In addition to standard playback controls, LYDONIX provides features such as volume management, track progress control, and a login system for a more personalized experience.',

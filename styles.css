@@ -8,7 +8,8 @@
     --medium-gray: #e0e0e0;
     --dark-gray: #4a4a4a;
     --transition: all 0.3s ease;
-    --nav-bg-opacity: 0.9; 
+    --nav-bg-opacity: 0.9;
+    --floating-element-color: rgba(88, 88, 88, 0.2); /* Default light mode color */
 }
 
 [data-theme="dark"] {
@@ -19,6 +20,7 @@
     --light-gray: #2d2d2d;
     --medium-gray: #404040;
     --dark-gray: #e0e0e0;
+    --floating-element-color: rgba(240, 228, 228, 0.2); /* Dark mode color - adjust as needed */
 }
 
 * {
@@ -211,6 +213,40 @@ nav {
     justify-content: center;
     text-align: center;
     padding: 0 1rem;
+    position: relative; /* Add relative positioning */
+    overflow: hidden; /* To contain floating elements within hero if needed */
+}
+
+/* Floating Elements Styles */
+.floating-element {
+    position: absolute;
+    background-color: var(--floating-element-color); /* Use CSS variable for color */
+    border-radius: 50%;
+    opacity: 0.6;
+    bottom: -50px; /* Start below viewport */
+    animation: floatAnimation var(--animation-duration, 20s) infinite ease-in-out; /* Default duration 20s if not set inline */
+    will-change: transform, opacity; /* For performance optimization */
+}
+
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px) rotate(180deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(0) translateX(0) rotate(360deg);
+        opacity: 0.6;
+    }
+}
+
+/* Ensure content stays on top of floating elements */
+.hero-content {
+    position: relative; /* To be above floating elements */
+    z-index: 1; /* Ensure it's on top */
 }
 
 .hero-content h1 {
@@ -230,6 +266,7 @@ nav {
     color: var(--secondary-color);
     margin-bottom: 2rem;
     transition: color var(--transition);
+    
 }
 
 .cta-btn {

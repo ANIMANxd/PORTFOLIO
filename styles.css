@@ -1,6 +1,6 @@
 /* Base Styles */
 :root {
-    --primary-color: #333;
+    --primary-color: #000000;
     --secondary-color: #666;
     --background-color: #fff;
     --accent-color: #999;
@@ -45,16 +45,16 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 5%;
-    background-color: rgba(var(--background-color-rgb), var(--nav-bg-opacity)); /* Use rgba for opacity */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(var(--background-color-rgb), 0.1); /* Semi-transparent background */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* More subtle shadow */
     position: fixed;
     top: 10px;
     left: 70px;
     right: 70px;
     z-index: 1000;
     border-radius: 100px;
-    opacity: var(--nav-bg-opacity); /* Maintain consistent opacity */
-    backdrop-filter: blur(10px); /* Optional blur effect */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
     transition: background-color var(--transition); /* Transition for background color */
 }
 

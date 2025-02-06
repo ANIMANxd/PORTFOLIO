@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Aniruddha Bhide |</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Aniruddha Bhide</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="socials.html">Connect</a>
+            <a href="about.html">About</a>
+        </div>
+        <div class="menu-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <section class="projects-page">
+        <h1>My Projects</h1>
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">Web Apps</button>
+        </div>
+
+        <div class="project-grid">
+            <div class="project-card" data-category="web">
+                <div class="project-image">
+                    <img src="images/music.png" alt="Project Image">
+                </div>
+                <h3>Music Web App</h3>
+                <p>A full-featured online shopping platform with cart and payment integration.</p>
+                <button class="project-link" data-project="music">View Project</button>
+            </div>
+
+
+            <div class="project-card" data-category="web">
+                <div class="project-image">
+                    <img src="images/sma.png" alt="Project Image">
+                </div>
+                <h3>Social Media Analytics tool</h3>
+                <p>Mobile application for tracking workouts and maintaining fitness goals.</p>
+                <button class="project-link" data-project="fitness">View Project</button>
+            </div>
+
+
+            <div class="project-card" data-category="web">
+                <div class="project-image"></div>
+                <h3>Brand Identity Design</h3>
+                <p>Complete brand identity design including logo, guidelines, and assets.</p>
+                <button class="project-link" data-project="brand">View Project</button>
+            </div>
+            <!-- Add more project cards as needed -->
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="project-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <div class="project-tags"></div>
+            </div>
+            <div class="modal-body">
+                <div class="project-gallery"></div>
+                <div class="project-info">
+                    <div class="info-section">
+                        <h3>Overview</h3>
+                        <p id="modal-overview"></p>
+                    </div>
+                    <div class="info-section">
+                        <h3>Technologies Used</h3>
+                        <div id="modal-tech" class="tech-stack"></div>
+                    </div>
+                    <div class="info-section">
+                        <h3>Links</h3>
+                        <div class="project-links">
+                            <a id="live-link" href="#" target="_blank">Live Demo</a>
+                            <a id="github-link" href="#" target="_blank">GitHub Repo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="socials.html">Connect</a>
+            </div>
+            <div class="footer-section">
+                <h4>Location</h4>
+                <p>Bangalore, Karnataka</p>
+                <p>India</p>
+            </div>
+            <div class="footer-section">
+                <h4>Let's Connect</h4>
+                <a href="socials.html">Social Media</a>
+                <a href="mailto:your.email@example.com">Email Me</a>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2025 Aniruddha Bhdie. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

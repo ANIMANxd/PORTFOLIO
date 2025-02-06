@@ -129,7 +129,8 @@ nav {
         padding: 1rem;
         flex-direction: column;
         align-items: center;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px); 
+        opacity: 0.9;
     }
 
     .nav-links.active {
@@ -529,14 +530,12 @@ nav {
     padding: 120px 20px;
     background-color: var(--background-color);
     transition: background-color var(--transition);
+    
 }
-.about h1{
-    font-size: 48px;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 48px;
-    color: var(--primary-color);
-    transition: color var(--transition);
+
+
+.h1-wrapper {
+    padding-top: 80px; 
 }
 
 .about-container {

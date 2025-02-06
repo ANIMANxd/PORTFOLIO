@@ -40,42 +40,51 @@ body {
 }
 
 /* Navigation Styles */
+
 nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5%;
-    background-color: rgba(var(--background-color-rgb), 0.1); 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-end; /* Align content to the right */
+    padding: 1rem 20px; /* Reduce horizontal padding, add vertical */
+    background-color: rgba(var(--background-color-rgb), 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
-    top: 10px;
-    left: 50px;
-    right: 50px;
+    top: 5px; /* Stick to the top */
+    bottom: 5px; /* Extend to the bottom */
+    right: 10px; /* Align to the right */
     z-index: 1000;
     border-radius: 5px;
-    backdrop-filter: blur(10px); 
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background-color var(--transition); 
+    transition: background-color var(--transition);
+    width: auto; /* Adjust width to content */
+    height: auto; /*Let height adjust dynamically*/
+    max-height: 100vh; /*Ensure the nav doesn't exceed the viewport height*/
+    overflow-y: auto; /*Add scroll if the content exceeds the height*/
 }
 
 :root {
-    --background-color-rgb: 255, 255, 255; 
+    --background-color-rgb: 255, 255, 255;
 }
 
 [data-theme="dark"] {
-    --background-color-rgb: 26, 26, 26; 
+    --background-color-rgb: 26, 26, 26;
 }
-
 
 .logo {
     display: flex;
-    align-items: center;
+    align-items: center; /* Center items vertically */
+    margin-bottom: 1rem; /* Add space between logo and nav links */
+    
 }
 
 #logo-img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    align-items: center;
+    left: auto;
+    right: auto;
     background-color: var(--medium-gray);
     transition: border-color var(--transition), background-color var(--transition);
     box-shadow: #2d2d2d 0px 0px 30px;
@@ -83,7 +92,10 @@ nav {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    flex-direction: column; /* Stack links vertically */
+    gap: 1rem;
+    align-items: center; /* Align links to the right */
+    margin-bottom: auto; /*Push the theme toggle to the bottom*/
 }
 
 .nav-links a {
@@ -92,6 +104,8 @@ nav {
     font-size: 1rem;
     font-weight: 500;
     transition: var(--transition);
+    display: block; /* Make the entire link clickable */
+    padding: 0.5rem 0; /* Add some vertical padding */
 }
 
 .nav-links a:hover {
@@ -117,8 +131,28 @@ nav {
     transition: var(--transition);
 }
 
+.theme-toggle {
+    margin-top: 1rem; /* Pushes the theme toggle down from the links */
+    align-items: center;
+}
 
 @media screen and (max-width: 768px) {
+    nav {
+        
+        left: 10px; /* Aligns navbar to left */
+        right: 10px; /* Removes right alignment */
+        top: 10px;
+        bottom: auto;
+        padding: 1rem;
+        border-radius: 10px; /* Full width, no rounded corners */
+        flex-direction: row; /* Back to horizontal */
+        align-items: center; /* Vertically center items */
+        justify-content: space-between;
+        height: auto;  /* Adjust height to content */
+        max-height: none; /*Reset max-height*/
+        overflow-y: visible; /* Disable scrolling */
+    }
+
     .nav-links {
         display: none;
         position: absolute;
@@ -129,7 +163,7 @@ nav {
         padding: 1rem;
         flex-direction: column;
         align-items: center;
-        backdrop-filter: blur(10px); 
+        backdrop-filter: blur(10px);
         opacity: 0.9;
     }
 
@@ -141,7 +175,7 @@ nav {
         display: block;
     }
 
-    
+
     .menu-btn.active .bar:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 6px);
     }
@@ -152,6 +186,20 @@ nav {
 
     .menu-btn.active .bar:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Correct the placement of the logo */
+    .logo {
+        margin-bottom: 0;
+    }
+
+     .nav-links {
+        margin-bottom: 0;
+    }
+
+    .theme-toggle {
+        margin-top: 0; /*Reset top margin for theme toggle */
+        margin-left: auto;
     }
 }
 

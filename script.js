@@ -80,20 +80,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const liveLink = document.getElementById('live-link');
     const githubLink = document.getElementById('github-link');
 
-    const projectData = { // Store project details.  *Important:  Matching the data-project attribute in HTML.*
+    const projectData = { 
         music: {
-            title: 'Music Web App',
-            overview: 'A dynamic music streaming app with playlists, user accounts, and artist profiles.',
-            tech: ['React', 'Node.js', 'Express', 'MongoDB'],
-            liveLink: 'https://example.com/music-app', // Replace with actual link
-            githubLink: 'https://github.com/yourusername/music-app' // Replace with actual link
+            title: 'LYDONIX - YouTube-Based Music Player',
+            overview: 'LYDONIX is a web application designed to provide users with a seamless music streaming experience by leveraging YouTube as its primary content source. The platform allows users to search for and play music videos directly from YouTube while offering an intuitive and modern interface. In addition to standard playback controls, LYDONIX provides features such as volume management, track progress control, and a login system for a more personalized experience.',
+            tech: ['HTML', 'CSS3', 'JavaScript', 'Youtube Data API v3'],
+            liveLink: 'https://animanxd.github.io/Lydonix-Music-app/', // Replace with actual link
+            githubLink: 'https://github.com/ANIMANxd/Lydonix-Music-app' // Replace with actual link
         },
-        fitness: {
+        socialanalytics: {
             title: 'Social Media Analytics tool',
-            overview: 'A fitness tracker providing workout logging, goal setting, and progress visualization.',
-            tech: ['Flutter', 'Firebase', 'Dart'],
-            liveLink: 'https://example.com/fitness-app', // Replace with actual link
-            githubLink: 'https://github.com/yourusername/fitness-app' // Replace with actual link
+            overview: `The Social Metrics web application is an AI-powered tool designed to analyze and evaluate social media content. Built using AstraDB for efficient data management and LangFlow for AI-driven insights, the application provides sentiment analysis, trend detection, and content evaluation. It enables users to extract meaningful insights from social media platforms through an intuitive and interactive Streamlit interface.
+                        The application leverages natural language processing (NLP) to identify patterns and trends, offering a streamlined way to interpret social media metrics. AstraDB ensures scalable and low-latency data storage, while LangFlow simplifies AI model deployment with low-code integration. Hosted on Streamlit, the web app is accessible and easy to deploy, making it a valuable tool for individuals and businesses looking to understand social media trends effectively.`,
+            tech: ['Python', 'Streamlit', 'Langflow', 'AstraDB', 'OpenAI - API', ],
+            liveLink: 'https://404brainnotfound-level-super-mind.streamlit.app//', // Replace with actual link
+            githubLink: 'https://github.com/ANIMANxd/Social-Matrices' // Replace with actual link
         }
 
     };
@@ -168,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- End Project Filtering & Modal Logic ---
 
-    // Add scroll-triggered animations for project cards
+
     projectCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';

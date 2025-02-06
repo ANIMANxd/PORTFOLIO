@@ -52,7 +52,7 @@ nav {
     left: 50px;
     right: 50px;
     z-index: 1000;
-    border-radius: 100px;
+    border-radius: 900px;
     backdrop-filter: blur(10px); 
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: background-color var(--transition); 
@@ -66,58 +66,16 @@ nav {
     --background-color-rgb: 26, 26, 26; 
 }
 
-/* Theme Toggle Styles */
-.theme-toggle {
-    display: flex;
-    align-items: center;
-    margin-left: 20px; 
-}
 
-#theme-checkbox {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
-}
 
-.theme-label {
-    background-color: var(--medium-gray);
-    border: 1px solid var(--accent-color);
-    border-radius: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
-    position: relative;
-    height: 26px;
+
+#logo-img {
     width: 50px;
-    transform: scale(1.5);
-    margin-right: 5px;
-}
-
-.theme-label i {
-    font-size: 1.2rem;
-    color: var(--accent-color);
-    padding: 2px;
-    transition: color var(--transition);
-}
-
-.theme-label i.fa-sun {
-    color: orange; 
-}
-
-.theme-label i.fa-moon {
-    color: navy;  /
-}
-
-
-.logo {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: color var(--transition);
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--medium-gray);
+    transition: border-color var(--transition), background-color var(--transition);
+    box-shadow: #2d2d2d 0px 0px 30px;
 }
 
 .nav-links {

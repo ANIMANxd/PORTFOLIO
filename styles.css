@@ -800,7 +800,7 @@ nav {
     background-color: var(--primary-color);
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 16px;
     transition: var(--transition);
 }
 

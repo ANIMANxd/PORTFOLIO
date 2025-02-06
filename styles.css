@@ -238,8 +238,8 @@ nav {
 }
 
 #profile-img {
-    width: 400px;
-    height: 400px;
+    width: 270px;
+    height: 270px;
     border-radius: 50%;
     margin: 0 auto 2rem;
     background-color: var(--medium-gray);

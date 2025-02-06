@@ -268,7 +268,7 @@ nav {
     transition: color var(--transition);
 }
 
-/* Project Filters */
+/* Project Filters (Keep existing) */
 .project-filters {
     display: flex;
     flex-wrap: wrap;
@@ -301,7 +301,7 @@ nav {
     border-color: var(--primary-color);
 }
 
-/* Project Grid */
+/* Project Grid (Keep existing) */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -316,6 +316,7 @@ nav {
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
+    padding: 1.5rem; /* Increase padding around the entire card */
 }
 
 .project-card:hover {
@@ -330,6 +331,8 @@ nav {
     position: relative;
     overflow: hidden;
     transition: background-color var(--transition);
+    margin-bottom: 1rem; /* Add space below the image */
+    border-radius: 16px;
 }
 
 .project-image img {
@@ -343,15 +346,13 @@ nav {
     transform: scale(1.05);
 }
 
-.project-content {
-    padding: 24px;
-}
+
 
 .project-card h3 {
     font-size: 20px;
     font-weight: 600;
     color: var(--primary-color);
-    margin-bottom: 12px;
+    margin-bottom: 0.5rem; /* Further reduced margin */
     transition: color var(--transition);
 }
 
@@ -359,32 +360,30 @@ nav {
     font-size: 15px;
     color: var(--secondary-color);
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 1rem; /* Further reduced margin */
     transition: color var(--transition);
 }
 
 .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 24px;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;  /* Equivalent to 12px and 24px */
     font-size: 15px;
     font-weight: 500;
-    color: var(--primary-color);
-    background: var(--light-gray);
-    border: none;
+    text-decoration: none;
     border-radius: 8px;
     cursor: pointer;
     transition: var(--transition);
+    background-color: var(--primary-color); /* Button background color */
+    color: var(--light-gray);           /* Button text color */
+    margin-top: 1rem;      /* Add space above the button */
 }
 
 .project-link:hover {
-    background: var(--primary-color);
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--light-gray);
 }
-
 /* Project Modal */
-.project-modal {
+.project-modal { /* (Keep existing) */
     position: fixed;
     top: 0;
     left: 0;
@@ -398,67 +397,72 @@ nav {
     transition: var(--transition);
 }
 
-.project-modal.active {
+.project-modal.active { /* (Keep existing) */
     opacity: 1;
     visibility: visible;
 }
 
-.modal-content {
+.modal-content { /* (Keep existing) */
     position: relative;
     max-width: 800px;
     margin: 32px auto;
-    background: var(--background-color);
+    background: var(--background-color); /* Use theme variable */
     border-radius: 16px;
     overflow: hidden;
     transform: translateY(20px);
     transition: var(--transition);
 }
 
-.modal-header {
+.modal-header { /* (Keep existing) */
     padding: 24px;
-    border-bottom: 1px solid var(--medium-gray);
+    border-bottom: 1px solid var(--medium-gray); /* Use theme variable */
     transition: border-color var(--transition);
 }
 
-.modal-header h2 {
+.modal-header h2 { /* (Keep existing) */
     font-size: 24px;
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Use theme variable */
     transition: color var(--transition);
 }
 
-.project-tags {
+.project-tags { /* (Keep existing) */
     display: flex;
     gap: 8px;
     margin-top: 12px;
 }
 
-.project-tag {
+.project-tag { /* (Keep existing, with slight adjustment) */
     padding: 4px 12px;
     font-size: 13px;
-    color: var(--secondary-color);
-    background: var(--light-gray);
+    color: var(--secondary-color); /* Use theme variable */
+    background: var(--light-gray); /* Add a background */
     border-radius: 100px;
     transition: var(--transition);
 }
 
-.modal-body {
+.modal-body { /* (Keep existing) */
     padding: 24px;
 }
 
-.info-section {
-    margin-bottom: 24px;
+.info-section { /* (Keep existing, with margin adjustment) */
+    margin-bottom: 16px; /* Reduced margin */
 }
 
-.info-section h3 {
+.info-section h3 { /* (Keep existing) */
     font-size: 18px;
     font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 12px;
+    color: var(--primary-color); /* Use theme variable */
+    margin-bottom: 8px; /* Reduce margin */
     transition: color var(--transition);
 }
 
-.tech-stack {
+.info-section p {
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.tech-stack { /* (Keep existing) */
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -466,51 +470,59 @@ nav {
     padding: 0;
 }
 
-.tech-stack li {
+.tech-stack li { /* (Keep existing) */
     padding: 6px 16px;
     font-size: 14px;
-    color: var(--secondary-color);
-    background: var(--background-color);
-    border: 1px solid var(--medium-gray);
+    color: var(--secondary-color); /* Use theme variable */
+    background: var(--light-gray); /* use theme variable*/
+    border: 1px solid var(--medium-gray); /* Use theme variable */
     border-radius: 100px;
     transition: var(--transition);
 }
 
-.project-links {
+.project-links { /* (Major changes for consistent styling) */
     display: flex;
     gap: 12px;
+    flex-wrap: wrap;        /* Allow wrapping on smaller screens */
 }
 
-.project-links a {
-    padding: 10px 24px;
+.project-links a { /* Consistent Link Styling */
+    padding: 10px 20px;
     font-size: 15px;
     font-weight: 500;
     text-decoration: none;
     border-radius: 8px;
     transition: var(--transition);
+    display: inline-block;   /* Needed for consistent box model */
+    text-align: center;      /* Center text within link */
+    min-width: 120px;       /* Ensure buttons have some width */
 }
 
-#live-link {
-    color: white;
-    background: var(--primary-color);
+#live-link { /* (Adjusted styling to match GitHub link) */
+    color: var(--primary-color);       /* Use Primary color */
+    background: var(--background-color); /* Use Background Color */
+    border: 1px solid var(--medium-gray);
 }
 
-#live-link:hover {
-    background: var(--dark-gray);
+#live-link:hover { /* (Adjusted hover state) */
+    background: var(--light-gray);      /* Use Light Gray */
+    border-color: var(--primary-color); /* Use Primary color on hover */
+    color: var(--primary-color);
 }
 
-#github-link {
+#github-link { /* (Keep existing) */
     color: var(--primary-color);
     background: var(--background-color);
     border: 1px solid var(--medium-gray);
 }
 
-#github-link:hover {
+#github-link:hover { /* (Keep existing) */
     background: var(--light-gray);
     border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
-.close-modal {
+.close-modal { /* (Keep existing) */
     position: absolute;
     top: 24px;
     right: 24px;
@@ -527,12 +539,16 @@ nav {
     transition: var(--transition);
 }
 
-.close-modal:hover {
+.close-modal:hover { /* (Keep existing) */
     color: var(--primary-color);
     background: var(--light-gray);
     border-color: var(--primary-color);
 }
 
+/* Enhanced styles for dark mode */
+[data-theme="dark"] .info-section p {
+    color: var(--secondary-color); /* Dark theme paragraph color */
+}
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -1088,13 +1104,14 @@ footer {
     padding: 5px;
     position: relative;
     height: 26px;
-    width: 50px;
+    width: auto;
     transform: scale(1.5);
     margin-right: 5px;
+    opacity: 1;
 }
 
 .theme-label i {
-    font-size: 0.8rem;
+    font-size: 0.5rem;
     color: var(--accent-color);
     padding: 2px;
 }
@@ -1105,4 +1122,8 @@ footer {
 
 .theme-label i.fa-moon {
     color: rgb(0, 0, 0);  /* Adjust as desired */
+}
+
+[data-theme="dark"] .theme-label i {
+    color: var(--secondary-color); /* Dark theme paragraph color */
 }

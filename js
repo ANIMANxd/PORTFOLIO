@@ -177,3 +177,17 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.project-card').forEach(card => {
     observer.observe(card);
 });
+
+
+document.querySelector('.theme-toggle').addEventListener('click', () => {
+    const html = document.documentElement;
+    const theme = html.getAttribute('data-theme');
+    html.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
+    localStorage.setItem('theme', theme === 'dark' ? 'light' : 'dark');
+});
+
+// Initialize theme from localStorage
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+}

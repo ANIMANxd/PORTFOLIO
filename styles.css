@@ -37,8 +37,8 @@ nav {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 10px;
-    left: 80px;
-    right: 80px;
+    left: 20px;
+    right: 20px;
     z-index: 1000;
     border-radius: 100px;
     opacity: 0.9;

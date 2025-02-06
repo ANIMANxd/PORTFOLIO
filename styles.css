@@ -49,8 +49,8 @@ nav {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* More subtle shadow */
     position: fixed;
     top: 10px;
-    left: 70px;
-    right: 70px;
+    left: 50px;
+    right: 50px;
     z-index: 1000;
     border-radius: 100px;
     backdrop-filter: blur(10px); /* Apply the blur effect */

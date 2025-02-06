@@ -482,12 +482,10 @@ nav {
     animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* Responsive Design */
-
 
 /* About Page Styles */
 .about {
-    padding: 150px 20px;
+    padding: 200px 20px;
     background: #ffffff;
 }
 

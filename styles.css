@@ -238,13 +238,14 @@ nav {
 }
 
 #profile-img {
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
     border-radius: 50%;
     margin: 0 auto 2rem;
     background-color: var(--medium-gray);
     border: 3px solid var(--primary-color);
     transition: border-color var(--transition), background-color var(--transition);
+    box-shadow: #2d2d2d 0px 0px 30px;
 }
 
 /* Projects Page Styles */

@@ -571,6 +571,14 @@ nav {
     background-color: var(--background-color);
     transition: background-color var(--transition);
 }
+.about h1{
+    font-size: 48px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 48px;
+    color: var(--primary-color);
+    transition: color var(--transition);
+}
 
 .about-container {
     max-width: 1200px;
@@ -695,6 +703,15 @@ nav {
     text-align: center;
     background-color: var(--background-color);
     transition: background-color var(--transition);
+}
+
+.socials-page h1 {
+    font-size: 48px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 48px;
+    color: var(--primary-color);
+    transition: color var(--transition);
 }
 
 .section-subtitle {

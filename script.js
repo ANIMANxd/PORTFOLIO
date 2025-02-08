@@ -5,18 +5,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     sections.forEach(heroSection => { // Now loop through each section
         if (heroSection) {
-            const numElements = 20; // Number of floating elements per section
+            const numElements = 30; // Number of floating elements per section
             for (let i = 0; i < numElements; i++) {
                 const el = document.createElement('div');
                 el.classList.add('floating-element');
                 heroSection.appendChild(el);
 
-                // Randomize size, position, and animation delay (no change needed here)
                 const size = Math.random() * 30 + 20; // Size between 20px and 50px
                 const xPos = Math.random() * 100;
                 const yPos = Math.random() * 100;
                 const animDelay = Math.random() * 5; // Animation delay up to 5s
-                const animDuration = Math.random() * 10 + 15; // Animation duration 15s to 25s
+                const animDuration = Math.random() * 10 + 3; // Animation duration 15s to 25s
 
                 el.style.width = `${size}px`;
                 el.style.height = `${size}px`;
@@ -134,8 +133,8 @@ document.addEventListener('DOMContentLoaded', function() {
             modalTitle.textContent = project.title;
             modalOverview.textContent = project.overview;
 
-            // Clear existing tech list and populate with new tech
-            modalTech.innerHTML = ''; // Clear previous list items
+            
+            modalTech.innerHTML = ''; 
             project.tech.forEach(tech => {
                 const li = document.createElement('li');
                 li.textContent = tech;
@@ -150,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event Listeners
 
     // Project Filtering
     filterButtons.forEach(button => {

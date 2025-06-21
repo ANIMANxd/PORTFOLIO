@@ -112,21 +112,28 @@ document.addEventListener('DOMContentLoaded', function() {
             title: 'LYDONIX - YouTube-Based Music Player',
             overview: 'LYDONIX is a web application designed to provide users with a seamless music streaming experience by leveraging YouTube as its primary content source. The platform allows users to search for and play music videos directly from YouTube while offering an intuitive and modern interface. In addition to standard playback controls, LYDONIX provides features such as volume management, track progress control, and a login system for a more personalized experience.',
             tech: ['HTML', 'CSS3', 'JavaScript', 'Youtube Data API v3'],
-            liveLink: 'https://animanxd.github.io/Lydonix-Music-app/', // Replace with actual link
-            githubLink: 'https://github.com/ANIMANxd/Lydonix-Music-app' // Replace with actual link
+            liveLink: 'https://animanxd.github.io/Lydonix-Music-app/', 
+            githubLink: 'https://github.com/ANIMANxd/Lydonix-Music-app' 
         },
         socialanalytics: {
             title: 'Social Media Analytics tool',
             overview: `The Social Metrics web application is an AI-powered tool designed to analyze and evaluate social media content. Built using AstraDB for efficient data management and LangFlow for AI-driven insights, the application provides sentiment analysis, trend detection, and content evaluation. It enables users to extract meaningful insights from social media platforms through an intuitive and interactive Streamlit interface.
                         The application leverages natural language processing (NLP) to identify patterns and trends, offering a streamlined way to interpret social media metrics. AstraDB ensures scalable and low-latency data storage, while LangFlow simplifies AI model deployment with low-code integration. Hosted on Streamlit, the web app is accessible and easy to deploy, making it a valuable tool for individuals and businesses looking to understand social media trends effectively.`,
             tech: ['Python', 'Streamlit', 'Langflow', 'AstraDB', 'OpenAI - API', ],
-            liveLink: 'https://404brainnotfound-level-super-mind.streamlit.app//', // Replace with actual link
-            githubLink: 'https://github.com/ANIMANxd/Social-Matrices' // Replace with actual link
+            liveLink: 'https://404brainnotfound-level-super-mind.streamlit.app//', 
+            githubLink: 'https://github.com/ANIMANxd/Social-Matrices' 
+        },
+        quizmasterpro: {
+            title: 'QuizMaster - AI-Powered Quiz Application',
+            overview: `QuizMaster Pro is a full-stack, production-ready SaaS platform for AI-powered quiz generation and management. Built with Vanilla JS on the frontend (hosted on Vercel) and FastAPI on the backend (deployed via Render), it features JWT-based authentication, role-based access control, and a PostgreSQL database (Neon DB). A standout feature is its integration with Google Gemini Pro for automatic quiz creation from uploaded documents. The modular backend uses SQLAlchemy, Pydantic, and follows a clean architecture with RESTful APIs. Designed for scalability and maintainability, it supports multi-role users, performance tracking, and a streamlined admin dashboard.`,
+            tech: ['Python', 'FastAPI', 'JavaScript', 'PostgreSQL (Neon DB)', 'Google Gemini API'],
+            liveLink: 'https://quizmaster-frontend-phi.vercel.app/', 
+            githubLink: 'https://quizmaster-frontend-phi.vercel.app/' 
         }
 
     };
 
-    // Function to open modal and populate data
+
     function openProjectModal(projectKey) {
         const project = projectData[projectKey];
 
@@ -163,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Filter project cards
             projectCards.forEach(card => {
                 if (filter === 'all' || card.dataset.category === filter) {
-                    card.style.display = 'block'; // Or remove 'none' if previously hidden
-                    observer.observe(card); // Re-observe for animations
+                    card.style.display = 'block'; 
+                    observer.observe(card); 
                 } else {
                     card.style.display = 'none';
                 }
@@ -172,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Open Project Modal
     projectCards.forEach(card => {
         const viewButton = card.querySelector('.project-link');
         viewButton.addEventListener('click', function() {
@@ -182,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // Close Project Modal
     closeModalBtn.addEventListener('click', () => {
         projectModal.classList.remove('active');
     });
@@ -193,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- End Project Filtering & Modal Logic ---
 
 
     projectCards.forEach((card, index) => {
@@ -204,7 +208,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // Add hover effect for nav links
     const navLinksItems = document.querySelectorAll('.nav-links a');
     navLinksItems.forEach(link => {
         link.addEventListener('mouseover', () => {

@@ -1,81 +1,901 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aniruddha Bhide</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Aniruddha Bhide | Full-Stack Developer & Problem Solver</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fdfdfd;
+            --text: #1a1a1a;
+            --accent: #007aff;
+            --muted: #666;
+            --border: #e6e6e6;
+            --hover-bg: #f5f5f5;
+            --success: #00b16a;
+            --modal-bg: rgba(253, 253, 253, 0.8);
+            --bg-grid: rgba(26, 26, 26, 0.04);
+            --bg-x: 50%;
+            --bg-y: 50%;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d0d0d;
+            --text: #f0f0f0;
+            --accent: #007aff;
+            --muted: #999;
+            --border: #222;
+            --hover-bg: #1a1a1a;
+            --success: #00c875;
+            --modal-bg: rgba(13, 13, 13, 0.8);
+            --bg-grid: rgba(240, 240, 240, 0.05);
+        }
+        
+        [data-theme="hacker"] {
+            --bg: #000;
+            --text: #0f0;
+            --accent: #0f0;
+            --muted: #0a0;
+            --border: #030;
+            --hover-bg: #020;
+            --success: #0f0;
+            --modal-bg: rgba(0, 0, 0, 0.8);
+            --bg-grid: #030;
+            font-family: var(--font-mono);
+            text-shadow: 0 0 2px #0f0, 0 0 5px rgba(0, 255, 0, 0.3);
+        }
+
+        [data-theme="hacker"] .status-dot,
+        [data-theme="hacker"] .timeline-item::before {
+            animation: none;
+            background: #0f0;
+        }
+        [data-theme="hacker"] ::selection { background: #0f0; color: #000; }
+        [data-theme="hacker"] .cursor-blink { background: #0f0; color: #010101; text-shadow: none; animation: blink-block 1.2s step-end infinite; }
+        @keyframes blink-block { 50% { background: transparent; } }
+
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at var(--bg-x) var(--bg-y), rgba(128, 128, 128, 0.15), transparent 30vw),
+                linear-gradient(var(--bg-grid) 1px, transparent 1px),
+                linear-gradient(to right, var(--bg-grid) 1px, var(--bg) 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* Loader */
+        .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 10000; transition: opacity 0.5s ease; }
+        .loader-text { font-size: 1rem; opacity: 0; animation: fadeInOut 2s ease-in-out infinite; }
+        @keyframes fadeInOut { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+        /* Main Layout */
+        .container { max-width: 1400px; margin: 0 auto; opacity: 0; transition: opacity 0.8s ease 0.5s; }
+        .container.loaded { opacity: 1; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 2rem; border-bottom: 1px solid var(--border); }
+        .name { font-size: 1.9rem; font-weight: 500; }
+        .header-controls { display: flex; align-items: center; gap: 1rem; }
+        .time-display { font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+        .theme-btn { background: none; border: 1px solid var(--border); color: var(--text); cursor: pointer; font-size: 1.2rem; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; transition: all 0.3s ease; }
+        .theme-btn:hover { background: var(--hover-bg); transform: rotate(180deg); }
+
+        .main-content { display: grid; grid-template-columns: 1fr 1.2fr; min-height: calc(100vh - 150px); }
+        .left-panel { padding: 4rem 2rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+
+        /* Profile Image Styles */
+        .profile-section { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 2rem; }
+        .profile-image { 
+            width: 180px; 
+            height: 180px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid var(--border); 
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+        .profile-image:hover { 
+            transform: scale(1.05); 
+            border-color: var(--accent);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+        }
+        [data-theme="dark"] .profile-image {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        [data-theme="dark"] .profile-image:hover {
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+        }
+        [data-theme="hacker"] .profile-image {
+            border-color: #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        [data-theme="hacker"] .profile-image:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .title { font-size: 2.5rem; font-weight: 400; letter-spacing: -0.04em; margin-bottom: 1rem; line-height: 1.1; }
+        .typing-text { font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem; font-weight: 300; min-height: 1.5em; }
+        .cursor-blink { animation: blink-pipe 1.2s step-end infinite; }
+        @keyframes blink-pipe { 50% { opacity: 0; } }
+
+        .description { font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 450px; }
+        .status { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; color: var(--muted); margin-top: 2rem; }
+        .status-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+        @keyframes blink { 0%, 50% { opacity: 1; transform: scale(1); } 51%, 100% { opacity: 0.4; transform: scale(0.9); } }
+        .main-content { 
+            display: grid; 
+            grid-template-columns: 1fr 1.2fr; 
+            min-height: calc(100vh - 150px); 
+        }
+
+        /* Mobile touch improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .project:hover { 
+                background: transparent; 
+                padding-left: 0; 
+                padding-right: 0; 
+                margin-left: 0; 
+                margin-right: 0; 
+                border-radius: 0; 
+            }
+            
+            .project:active { 
+                background: var(--hover-bg); 
+                transform: scale(0.98); 
+                transition: all 0.1s ease; 
+            }
+        }
+
+        .right-panel { overflow-y: auto; }
+        .section-nav { position: sticky; top: 0; background: var(--modal-bg); backdrop-filter: blur(8px); padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); z-index: 10; }
+        .nav-tabs { display: flex; gap: 2rem; }
+        .nav-tab { background: none; border: none; color: var(--muted); font-size: 0.95rem; cursor: pointer; padding-bottom: 0.5rem; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+        .nav-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+        .tabs-container { padding: 3rem 2rem; }
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+
+        /* Projects */
+        .project { padding: 2rem 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.3s ease; }
+        .project:hover { background: var(--hover-bg); padding-left: 1rem; padding-right: 1rem; margin-left: -1rem; margin-right: -1rem; border-radius: 4px; }
+        .project-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .project-title { font-size: 1.3rem; font-weight: 500; }
+        .project-type { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+        .project-desc { font-size: 1rem; color: var(--muted); }
+        .tech-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; font-size: 0.85rem; }
+        .tech-item { background: var(--hover-bg); padding: 0.25rem 0.75rem; border-radius: 4px; border: 1px solid var(--border); }
+
+        /* Skills */
+        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .skill-category-title { font-size: 1rem; font-weight: 500; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        .skill-list { list-style: none; }
+        .skill-list li { padding: 0.5rem 0; color: var(--muted); font-size: 0.95rem; }
+
+        /* Journey */
+        .timeline { position: relative; padding-left: 2.5rem; border-left: 1px solid var(--border); }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; }
+        .timeline-item::before { content: ''; position: absolute; left: -2.6rem; top: 0.4rem; width: 9px; height: 9px; background: var(--bg); border: 2px solid var(--text); border-radius: 50%; }
+        .timeline-date { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.25rem; }
+        .timeline-title { font-size: 1.15rem; font-weight: 500; }
+        .timeline-company { font-size: 1rem; color: var(--muted); margin-bottom: 0.75rem; }
+        .timeline-desc { font-size: 0.95rem; color: var(--muted); }
+        
+        /* Principles */
+        .philosophy-item { margin-bottom: 2.5rem; }
+        .philosophy-title { font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem;}
+        .philosophy-desc { font-size: 0.95rem; color: var(--muted); }
+
+        /* Footer CTA */
+        .footer-cta { text-align: center; padding: 5rem 2rem; border-top: 1px solid var(--border); }
+        .footer-cta .title { font-size: 2.5rem; }
+        .footer-cta p { font-size: 1.1rem; color: var(--muted); max-width: 500px; margin: 1rem auto 2rem; }
+        .email-link { font-size: 1.2rem; display: inline-block; text-decoration: none; color: var(--text); border: 1px solid var(--border); padding: 1rem 2.5rem; border-radius: 30px; transition: all 0.3s ease; }
+        .email-link:hover { background: var(--text); color: var(--bg); border-color: var(--text); text-shadow: none; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; }
+        .footer-link { color: var(--muted); text-decoration: none; transition: color 0.3s ease; }
+        .footer-link:hover { color: var(--text); }
+
+        /* Modals & Palettes */
+        .modal-overlay, .command-palette-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-bg); backdrop-filter: blur(10px); z-index: 1001; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .modal-overlay.active, .command-palette-overlay.active { opacity: 1; pointer-events: all; }
+
+        .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -45%); background: var(--bg); width: 90%; max-width: 700px; max-height: 85vh; overflow-y: auto; padding: 3rem; border-radius: 8px; border: 1px solid var(--border); opacity: 0; transition: all 0.4s ease; }
+        .modal-overlay.active .modal-content { transform: translate(-50%, -50%); opacity: 1; }
+        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; background: none; border: none; color: var(--muted); cursor: pointer; }
+        
+        /* Modal Content Styles */
+        #modal-title { font-size: 1.8rem; margin-bottom: 2rem; font-weight: 500;}
+        .modal-section { margin-bottom: 2.5rem; }
+        .modal-section h4 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        #modal-role, #modal-desc, #modal-challenge { font-size: 1rem; color: var(--muted); }
+        .modal-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .modal-link { display: inline-block; text-decoration: none; color: var(--text); background: var(--hover-bg); padding: 0.5rem 1.5rem; border: 1px solid var(--border); border-radius: 20px; transition: all 0.3s ease; text-shadow: none; }
+        .modal-link:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+        
+        .command-palette { position: absolute; top: 20vh; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; }
+        .command-palette input { width: 100%; padding: 1rem; border: none; background: transparent; color: var(--text); font-size: 1rem; outline: none; border-bottom: 1px solid var(--border); font-family: inherit; text-shadow: inherit; }
+        .command-list { list-style: none; max-height: 300px; overflow-y: auto; }
+        .command-item { padding: 0.75rem 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .command-item:hover, .command-item.selected { background: var(--hover-bg); }
+        .command-item kbd { background: var(--border); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; }
+        
+        /* Utility & Animations */
+        .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Responsive */
+        @media (max-width: 1024px) { 
+            .main-content { grid-template-columns: 1fr; } 
+            .left-panel { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; } 
+            .profile-section { align-items: center; text-align: center; }
+        }
+        @media (max-width: 768px) { 
+            .title { font-size: 2rem; } /* Reduced from 2.5rem */
+            .header { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 1rem; 
+                padding: 1.5rem; 
+            } 
+            .header-controls { align-self: flex-end; } 
+            .skills-grid { grid-template-columns: 1fr; } 
+            .profile-image { width: 120px; height: 120px; } /* Increased from 100px */
+            
+            /* NEW MOBILE IMPROVEMENTS */
+            .left-panel { 
+                padding: 2rem 1.5rem; 
+                text-align: center;
+                min-height: auto;
+            }
+            
+            .description { 
+                font-size: 1rem; 
+                margin-bottom: 1.5rem; 
+                max-width: none;
+            }
+            
+            .typing-text { 
+                font-size: 1rem; 
+                margin-bottom: 1.5rem; 
+            }
+            
+            .tabs-container { 
+                padding: 2rem 1.5rem; 
+            }
+            
+            .section-nav { 
+                padding: 1rem 1.5rem; 
+            }
+            
+            .nav-tabs { 
+                gap: 1rem; 
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-tab { 
+                font-size: 0.9rem; 
+                padding: 0.5rem 0.75rem;
+                white-space: nowrap;
+            }
+            
+            .project { 
+                padding: 1.5rem 0; 
+            }
+            
+            .project:hover { 
+                margin-left: 0; 
+                margin-right: 0; 
+                padding-left: 0; 
+                padding-right: 0; 
+            }
+            
+            .project-title { 
+                font-size: 1.1rem; 
+            }
+            
+            .tech-list { 
+                gap: 0.5rem; 
+            }
+            
+            .tech-item { 
+                font-size: 0.8rem; 
+                padding: 0.2rem 0.6rem; 
+            }
+            
+            .modal-content { 
+                width: 95%; 
+                padding: 2rem 1.5rem; 
+                max-height: 90vh;
+            }
+            
+            .modal-links { 
+                flex-direction: column; 
+                gap: 0.75rem; 
+            }
+            
+            .command-palette { 
+                width: 95%; 
+                top: 15vh; 
+            }
+            
+            .footer-cta { 
+                padding: 3rem 1.5rem; 
+            }
+            
+            .footer-cta .title { 
+                font-size: 2rem; 
+            }
+            
+            .footer-links { 
+                gap: 1.5rem; 
+                flex-wrap: wrap; 
+            }
+            
+            .timeline { 
+                padding-left: 1.5rem; 
+            }
+            
+            .timeline-item::before { 
+                left: -1.6rem; 
+            }
+        }
+
+        /* NEW: Extra small screens */
+        @media (max-width: 480px) {
+            .header { 
+                padding: 1rem; 
+            }
+            
+            .name { 
+                font-size: 1.5rem; 
+            }
+            
+            .title { 
+                font-size: 1.8rem; 
+            }
+            
+            .left-panel { 
+                padding: 1.5rem 1rem; 
+            }
+            
+            .tabs-container { 
+                padding: 1.5rem 1rem; 
+            }
+            
+            .section-nav { 
+                padding: 1rem; 
+            }
+            
+            .nav-tabs { 
+                font-size: 0.85rem; 
+            }
+            
+            .profile-image { 
+                width: 100px; 
+                height: 100px; 
+            }
+            
+            .modal-content { 
+                padding: 1.5rem 1rem; 
+            }
+            
+            .email-link { 
+                padding: 0.75rem 1.5rem; 
+                font-size: 1rem; 
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <div class="logo">
-            <img id="logo-img" src="https://avatars.githubusercontent.com/u/128971818?s=400&u=f6cc69826ee7afc1abb87f1244a2513a60c472aa&v=4" alt="Aniruddha Bhide" class="profile-pic">
-        </div>
-        <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="projects.html">Projects</a>
-            <a href="socials.html">Connect</a>
-            <a href="about.html">About</a>
-        </div>
-        <div class="menu-btn">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <div class="theme-toggle">
-            <input type="checkbox" id="theme-checkbox">
-            <label for="theme-checkbox" class="theme-label">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-            </label>
-        </div>
-        
-    </nav>
+    <div class="loader"><div class="loader-text">INITIALIZING...</div></div>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div>
-                <img id="profile-img" src="https://avatars.githubusercontent.com/u/128971818?s=400&u=f6cc69826ee7afc1abb87f1244a2513a60c472aa&v=4" alt="Aniruddha Bhide" class="profile-pic">
+    <div class="container">
+        <header class="header">
+            <div class="name">Aniruddha Bhide</div>
+            <div class="header-controls">
+                <div class="time-display" id="currentTime"></div>
+                <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">○</button>
             </div>
-            
-            <h1><span class="highlight">Hello, I'm </span> Aniruddha Bhide</h1>
-            <p class="subtitle">Full Stack Developer</p>
-            
-            <a href="projects.html" class="cta-btn">View My Work</a>
-            <a href="about.html" class="cta-btn">About Me</a>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="index.html">Home</a>
-                <a href="projects.html">Projects</a>
-                <a href="socials.html">Connect</a>
-                <a href="about.html">About me</a>
-            </div>
-            <div class="footer-section">
-                <h4>Location</h4>
-                <p>Bangalore, Karnataka</p>
-                <p>India</p>
-            </div>
-            <div class="footer-section">
-                <h4>Let's Connect</h4>
-                <a href="socials.html">Social Media</a>
-                <a href="mailto:kryptogrammer101.com">Email Me</a>
-            </div>
-        </div>
-        <p class="copyright">&copy; 2025 Aniruddha Bhide. All rights reserved.</p>
-        <p class="copyright"><b> Design Inspired by - <a href="https://www.aswn.me/">aswn.me</a>.</b></p>
+        </header>
 
+        <main class="main-content">
+            <div class="left-panel">
+                <div class="profile-section">
+                    <!-- Replace 'your-image.jpg' with the actual path to your image -->
+                    <img src="https://avatars.githubusercontent.com/u/128971818?v=4" alt="Aniruddha Bhide" class="profile-image">
+                </div>
+                <h1 class="title">CS student building tools for a better web.</h1>
+                <p class="typing-text" id="typingText"></p>
+                <p class="description">
+                    I'm a 3rd year BCA - Honors student at Chanakya University, Bangalore, specializing in Software Engineering.
+                    A Full Stack Developer and cybersecurity enthusiast, I enjoy building scalable applications, exploring system vulnerabilities, and developing secure, high-performance solutions.
+                </p>
+                <div class="status">
+                    <div class="status-dot"></div>
+                    Seeking Summer 2025 internships.
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <nav class="section-nav">
+                    <div class="nav-tabs">
+                        <button class="nav-tab active" onclick="app.switchTab('work')">Work</button>
+                        <button class="nav-tab" onclick="app.switchTab('skills')">Skills</button>
+                        <button class="nav-tab" onclick="app.switchTab('journey')">Journey</button>
+                        <button class="nav-tab" onclick="app.switchTab('principles')">Principles</button>
+                    </div>
+                </nav>
+
+                <div class="tabs-container">
+                    <!-- WORK -->
+                    <div class="tab-content active" id="work-tab">
+                        <div class="project reveal-on-scroll"
+                             data-title="QuizMaster-Pro"
+                             data-type="AI-powered SaaS Quiz Platform"
+                             data-tech="Python,FastAPI,JavaScript,PostgreSQL (Neon DB),Google Gemini API"
+                             data-role="Solo developer – built the entire platform end-to-end."
+                             data-desc="A full-stack platform for generating, managing, and analyzing quizzes. Features include AI-based quiz creation using Google Gemini, analytics dashboard, user roles, and performance tracking."
+                             data-challenge="The main challenge was integrating the Google Gemini API for dynamic quiz generation while ensuring secure, scalable backend operations with FastAPI and Neon DB."
+                             data-link-live="#"
+                             data-link-repo="https://github.com/ANIMANxd/QuizMaster-Pro">
+                            <div class="project-header">
+                                <h3 class="project-title">QuizMaster-Pro</h3>
+                                <div class="project-type">AI-powered Quiz SaaS</div>
+                            </div>
+                            <p class="project-desc">An AI-powered platform for creating, managing, and analyzing quizzes, with automated quiz generation.</p>
+                        </div>
+                    </div>
+                    <!-- SKILLS -->
+                    <div class="tab-content" id="skills-tab">
+                         <div class="skills-grid">
+                            <div class="skill-category">
+                                <h3 class="skill-category-title">Languages</h3>
+                                <ul class="skill-list">
+                                    <li class="reveal-on-scroll">Python</li>
+                                    <li class="reveal-on-scroll">JavaScript</li>
+                                    <li class="reveal-on-scroll">Java</li>
+                                    <li class="reveal-on-scroll">HTML5</li>
+                                    <li class="reveal-on-scroll">CSS3</li>
+                                    <li class="reveal-on-scroll">SQL</li>
+                                    <li class="reveal-on-scroll">Bash</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h3 class="skill-category-title">Frameworks & Libraries</h3>
+                                <ul class="skill-list">
+                                    <li class="reveal-on-scroll">FastAPI</li>
+                                    <li class="reveal-on-scroll">React</li>
+                                    <li class="reveal-on-scroll">Next.js</li>
+                                </ul>
+                            </div>
+                             <div class="skill-category">
+                                <h3 class="skill-category-title">Databases</h3>
+                                <ul class="skill-list">
+                                    <li class="reveal-on-scroll">PostgreSQL</li>
+                                    <li class="reveal-on-scroll">MySQL</li>
+                                 </ul>
+                            </div>
+                             <div class="skill-category">
+                                <h3 class="skill-category-title">Tools & Platforms</h3>
+                                <ul class="skill-list">
+                                    <li class="reveal-on-scroll">Git</li>
+                                    <li class="reveal-on-scroll">Linux</li>
+                                    <li class="reveal-on-scroll">Arduino</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- JOURNEY -->
+                    <div class="tab-content" id="journey-tab">
+                        <div class="timeline">
+                            <div class="timeline-item reveal-on-scroll">
+                                <div class="timeline-date">2023 - 2027 (Expected)</div>
+                                <h3 class="timeline-title">BCA (Hons.) Software Engineering</h3>
+                                <div class="timeline-company">Chanakya University, Bangalore</div>
+                                <p class="timeline-desc">Relevant Coursework: Data Structures & Algorithms, Web Development, Database Systems, Software Engineering, Operating Systems, Computer Networks.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- PRINCIPLES -->
+                    <div class="tab-content" id="principles-tab">
+                        <div class="philosophy-item reveal-on-scroll"> <h3 class="philosophy-title"><span>//</span> Curiosity-Driven Learning</h3> <p class="philosophy-desc">I believe the best way to learn is by doing. I'm constantly exploring new technologies, building side projects, and diving deep into documentation to understand not just the 'how', but the 'why'.</p> </div>
+                        <div class="philosophy-item reveal-on-scroll"> <h3 class="philosophy-title"><span>//</span> Focus on Fundamentals</h3> <p class="philosophy-desc">Frameworks and tools change, but core principles like data structures, algorithms, and secure coding practices are timeless. I strive to build on a strong foundation, which makes me adaptable and effective.</p> </div>
+                        <div class="philosophy-item reveal-on-scroll"> <h3 class="philosophy-title"><span>//</span> Growth Through Collaboration</h3> <p class="philosophy-desc">I learn the most when working with others. I value constructive feedback, clear communication, and believe that the best results come from a team that is open, respectful, and aligned on a common goal.</p> </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer-cta reveal-on-scroll">
+        <h2 class="title">Let's connect.</h2>
+        <p>I'm excited about the future of tech and always open to new opportunities and collaborations. Let's start a conversation!</p>
+        <a href="mailto:kryptogrammer101@gmail.com" class="email-link">kryptogrammer101@gmail.com</a>
+        <div class="footer-links">
+            <a href="https://github.com/ANIMANxd/" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/aniruddha-bhide0704/" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://instagram.com/_aniruddha_bhide/" class="footer-link" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
     </footer>
+    
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalCloseBtn">×</button>
+            <h2 id="modal-title"></h2>
+            <div class="modal-section">
+                <h4>My Role</h4>
+                <p id="modal-role"></p>
+            </div>
+            <div class="modal-section">
+                <h4>Core Technology</h4>
+                 <div class="tech-list" id="modal-tech"></div>
+            </div>
+            <div class="modal-section">
+                <h4>Project Description</h4>
+                <p id="modal-desc"></p>
+            </div>
+            <div class="modal-section">
+                <h4>Key Challenge & Solution</h4>
+                <p id="modal-challenge"></p>
+            </div>
+             <div class="modal-section">
+                <h4>Links</h4>
+                <div class="modal-links">
+                   <a href="#" id="modal-link-live" class="modal-link" target="_blank" rel="noopener noreferrer">Live Site</a>
+                   <a href="#" id="modal-link-repo" class="modal-link" target="_blank" rel="noopener noreferrer">Repository</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <div class="command-palette-overlay" id="commandPaletteOverlay">
+        <div class="command-palette">
+            <input type="text" id="commandInput" placeholder="> Type a command or search...">
+            <ul class="command-list" id="commandList"></ul>
+        </div>
+    </div>
+
+
     <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-      </script>
-      <script defer src="/_vercel/insights/script.js"></script>
+        const app = {
+            config: {
+                phrases: [
+                    "Progress is built through consistency.",
+                    "Every expert was once a beginner.",
+                    "Small steps lead to big change.",
+                    "Discipline beats motivation in the long run."
+                ],
+                timeZone: 'Asia/Kolkata',
+                konamiCode: ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'],
+            },
+            state: {
+                isDeleting: false,
+                phraseIndex: 0,
+                charIndex: 0,
+                konamiProgress: 0,
+                currentTheme: 'light',
+                previousTheme: 'light',
+                observer: null,
+                commandPaletteOpen: false,
+                selectedCommandIndex: 0,
+            },
+            init() {
+                this.cacheDOMElements();
+                this.initLoader();
+                this.initTheme();
+                this.initTime();
+                this.initTypewriter();
+                this.initScrollAnimations();
+                this.initModals();
+                this.initDynamicBackground();
+                this.initCommandPalette();
+                this.initKonamiCode();
+            },
+            cacheDOMElements() {
+                this.els = {
+                    body: document.body,
+                    loader: document.querySelector('.loader'),
+                    container: document.querySelector('.container'),
+                    themeBtn: document.getElementById('themeBtn'),
+                    currentTime: document.getElementById('currentTime'),
+                    typingText: document.getElementById('typingText'),
+                    // Modal Elements
+                    modalOverlay: document.getElementById('projectModal'),
+                    modalContent: document.querySelector('.modal-content'),
+                    modalCloseBtn: document.getElementById('modalCloseBtn'),
+                    modalTitle: document.getElementById('modal-title'),
+                    modalRole: document.getElementById('modal-role'),
+                    modalTech: document.getElementById('modal-tech'),
+                    modalDesc: document.getElementById('modal-desc'),
+                    modalChallenge: document.getElementById('modal-challenge'),
+                    modalLinkLive: document.getElementById('modal-link-live'),
+                    modalLinkRepo: document.getElementById('modal-link-repo'),
+                    // Command Palette Elements
+                    commandPaletteOverlay: document.getElementById('commandPaletteOverlay'),
+                    commandInput: document.getElementById('commandInput'),
+                    commandList: document.getElementById('commandList'),
+                    // Tabs
+                    navTabs: document.querySelectorAll('.nav-tab'),
+                    tabContents: document.querySelectorAll('.tab-content')
+                };
+            },
+            initLoader() {
+                window.addEventListener('load', () => {
+                    this.els.loader.style.opacity = '0';
+                    this.els.loader.addEventListener('transitionend', () => {
+                        this.els.loader.style.display = 'none';
+                    });
+                    this.els.container.classList.add('loaded');
+                });
+            },
+            initTheme() {
+                const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                this.setTheme(savedTheme);
+
+                this.els.themeBtn.addEventListener('click', () => {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const nextTheme = current === 'light' ? 'dark' : 'light';
+                    this.setTheme(nextTheme);
+                });
+            },
+            setTheme(theme) {
+                if (theme === 'hacker' && this.state.currentTheme !== 'hacker') {
+                    this.state.previousTheme = this.state.currentTheme;
+                }
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                this.state.currentTheme = theme;
+            },
+            initTime() {
+                const updateTime = () => {
+                    const now = new Date();
+                    const timeString = now.toLocaleTimeString('en-US', {
+                        timeZone: this.config.timeZone,
+                        hour12: false,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    });
+                    this.els.currentTime.textContent = `${timeString} IST`;
+                };
+                updateTime();
+                setInterval(updateTime, 1000);
+            },
+            initTypewriter() {
+                const type = () => {
+                    const currentPhrase = this.config.phrases[this.state.phraseIndex];
+                    let displayText = '';
+
+                    if (this.state.isDeleting) {
+                        displayText = currentPhrase.substring(0, this.state.charIndex - 1);
+                        this.state.charIndex--;
+                    } else {
+                        displayText = currentPhrase.substring(0, this.state.charIndex + 1);
+                        this.state.charIndex++;
+                    }
+
+                    this.els.typingText.innerHTML = `${displayText}<span class="cursor-blink">|</span>`;
+
+                    let typeSpeed = this.state.isDeleting ? 50 : 120;
+
+                    if (!this.state.isDeleting && this.state.charIndex === currentPhrase.length) {
+                        typeSpeed = 2000; // Pause at the end
+                        this.state.isDeleting = true;
+                    } else if (this.state.isDeleting && this.state.charIndex === 0) {
+                        typeSpeed = 500; // Pause before new sentence
+                        this.state.isDeleting = false;
+                        this.state.phraseIndex = (this.state.phraseIndex + 1) % this.config.phrases.length;
+                    }
+
+                    setTimeout(type, typeSpeed);
+                }
+                type();
+            },
+            initScrollAnimations() {
+                this.state.observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                    this.state.observer.observe(el);
+                });
+            },
+            initModals() {
+                document.querySelector('.right-panel').addEventListener('click', (e) => {
+                    const projectEl = e.target.closest('.project');
+                    if (projectEl) {
+                        this.openModal(projectEl);
+                    }
+                });
+
+                const closeModal = () => {
+                    this.els.modalOverlay.classList.remove('active');
+                };
+
+                this.els.modalCloseBtn.addEventListener('click', closeModal);
+                this.els.modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === this.els.modalOverlay) {
+                        closeModal();
+                    }
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.els.modalOverlay.classList.contains('active')) {
+                        closeModal();
+                    }
+                });
+            },
+            openModal(projectEl) {
+                const data = projectEl.dataset;
+                this.els.modalTitle.textContent = data.title;
+                this.els.modalRole.textContent = data.role;
+                this.els.modalDesc.textContent = data.desc;
+                this.els.modalChallenge.textContent = data.challenge;
+
+                this.els.modalTech.innerHTML = '';
+                data.tech.split(',').forEach(tech => {
+                    const techEl = document.createElement('span');
+                    techEl.className = 'tech-item';
+                    techEl.textContent = tech.trim();
+                    this.els.modalTech.appendChild(techEl);
+                });
+
+                this.els.modalLinkLive.href = data.linkLive;
+                this.els.modalLinkRepo.href = data.linkRepo;
+                
+                this.els.modalLinkLive.style.display = (data.linkLive && data.linkLive !== '#') ? 'inline-block' : 'none';
+                this.els.modalLinkRepo.style.display = (data.linkRepo && data.linkRepo !== '#') ? 'inline-block' : 'none';
+
+                this.els.modalOverlay.classList.add('active');
+            },
+            initDynamicBackground() {
+                document.addEventListener('mousemove', e => {
+                    const x = (e.clientX / window.innerWidth) * 100;
+                    const y = (e.clientY / window.innerHeight) * 100;
+                    document.documentElement.style.setProperty('--bg-x', `${x}%`);
+                    document.documentElement.style.setProperty('--bg-y', `${y}%`);
+                });
+            },
+            initCommandPalette() {
+                this.commands = [
+                    { name: 'Switch to Light Theme', action: () => this.setTheme('light'), kbd: 'T' },
+                    { name: 'Switch to Dark Theme', action: () => this.setTheme('dark'), kbd: 'T' },
+                    { name: 'Go to Work', action: () => this.switchTab('work'), kbd: 'W' },
+                    { name: 'Go to Skills', action: () => this.switchTab('skills'), kbd: 'S' },
+                    { name: 'Go to Journey', action: () => this.switchTab('journey'), kbd: 'J' },
+                    { name: 'Go to Principles', action: () => this.switchTab('principles'), kbd: 'P' },
+                    { name: 'Open GitHub', action: () => window.open('https://github.com/ANIMANxd/', '_blank') },
+                    { name: 'Open LinkedIn', action: () => window.open('https://www.linkedin.com/in/aniruddha-bhide0704/', '_blank') },
+                    { name: 'Contact via Email', action: () => window.location.href = 'mailto:kryptogrammer101@gmail.com' },
+                ];
+
+                document.addEventListener('keydown', (e) => {
+                    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                        e.preventDefault();
+                        this.toggleCommandPalette();
+                    }
+                    if (e.key === 'Escape' && this.state.commandPaletteOpen) {
+                        this.toggleCommandPalette();
+                    }
+                    if (this.state.commandPaletteOpen) {
+                        this.handleCommandPaletteNavigation(e);
+                    }
+                });
+
+                this.els.commandPaletteOverlay.addEventListener('click', (e) => {
+                    if (e.target === this.els.commandPaletteOverlay) {
+                        this.toggleCommandPalette();
+                    }
+                });
+
+                this.els.commandInput.addEventListener('input', () => this.renderCommands());
+            },
+            toggleCommandPalette() {
+                this.state.commandPaletteOpen = !this.state.commandPaletteOpen;
+                this.els.commandPaletteOverlay.classList.toggle('active', this.state.commandPaletteOpen);
+                if (this.state.commandPaletteOpen) {
+                    this.els.commandInput.value = '';
+                    this.renderCommands();
+                    this.els.commandInput.focus();
+                }
+            },
+            renderCommands(filteredCommands) {
+                this.els.commandList.innerHTML = '';
+                const query = this.els.commandInput.value.toLowerCase();
+                this.filteredCommands = this.commands.filter(cmd => cmd.name.toLowerCase().includes(query));
+
+                if (this.filteredCommands.length === 0) {
+                     this.els.commandList.innerHTML = `<li class="command-item" style="justify-content:center;">No results found.</li>`;
+                     return;
+                }
+
+                this.filteredCommands.forEach((cmd, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'command-item';
+                    if (index === this.state.selectedCommandIndex) {
+                        li.classList.add('selected');
+                    }
+                    li.innerHTML = `<span>${cmd.name}</span>` + (cmd.kbd ? `<kbd>${cmd.kbd}</kbd>` : '');
+                    li.addEventListener('click', () => {
+                        cmd.action();
+                        this.toggleCommandPalette();
+                    });
+                    this.els.commandList.appendChild(li);
+                });
+            },
+            handleCommandPaletteNavigation(e) {
+                if (this.filteredCommands.length === 0) return;
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    this.state.selectedCommandIndex = (this.state.selectedCommandIndex + 1) % this.filteredCommands.length;
+                    this.renderCommands();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    this.state.selectedCommandIndex = (this.state.selectedCommandIndex - 1 + this.filteredCommands.length) % this.filteredCommands.length;
+                    this.renderCommands();
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if(this.filteredCommands[this.state.selectedCommandIndex]){
+                        this.filteredCommands[this.state.selectedCommandIndex].action();
+                        this.toggleCommandPalette();
+                    }
+                }
+            },
+            initKonamiCode() {
+                document.addEventListener('keydown', e => {
+                    if (this.config.konamiCode[this.state.konamiProgress] === e.key) {
+                        this.state.konamiProgress++;
+                    } else {
+                        // Reset if wrong key, unless it's the start of the sequence again
+                        this.state.konamiProgress = (this.config.konamiCode[0] === e.key) ? 1 : 0;
+                    }
+
+                    if (this.state.konamiProgress === this.config.konamiCode.length) {
+                        this.state.konamiProgress = 0;
+                        const newTheme = this.state.currentTheme === 'hacker' ? this.state.previousTheme : 'hacker';
+                        this.setTheme(newTheme);
+                    }
+                });
+            },
+            switchTab(tabName) {
+                this.els.navTabs.forEach(tab => {
+                    tab.classList.toggle('active', tab.getAttribute('onclick').includes(`'${tabName}'`));
+                });
+                this.els.tabContents.forEach(content => {
+                    content.classList.toggle('active', content.id === `${tabName}-tab`);
+                });
+            }
+        };
+
+        app.init();
+    </script>
 </body>
 </html>

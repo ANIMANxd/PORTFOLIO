@@ -135,7 +135,6 @@
         }
 
         .title { font-size: 2.5rem; font-weight: 400; letter-spacing: -0.04em; margin-bottom: 1rem; line-height: 1.1; }
-        .typing-text { font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem; font-weight: 300; min-height: 1.5em; }
         .cursor-blink { animation: blink-pipe 1.2s step-end infinite; }
         @keyframes blink-pipe { 50% { opacity: 0; } }
 
@@ -179,7 +178,7 @@
         /* Projects */
         .project { padding: 2rem 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.3s ease; }
         .project:hover { background: var(--hover-bg); padding-left: 1rem; padding-right: 1rem; margin-left: -1rem; margin-right: -1rem; border-radius: 4px; }
-        .project-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .project-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 0.5rem; }
         .project-title { font-size: 1.3rem; font-weight: 500; }
         .project-type { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
         .project-desc { font-size: 1rem; color: var(--muted); }
@@ -248,28 +247,37 @@
         /* Responsive */
         @media (max-width: 1024px) { 
             .main-content { grid-template-columns: 1fr; } 
-            .left-panel { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; } 
+            .left-panel { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; text-align: left;} 
             .profile-section { align-items: center; text-align: center; }
         }
-        @media (max-width: 768px) { 
-            .title { font-size: 2rem; } /* Reduced from 2.5rem */
-            .header { 
-                flex-direction: column; 
-                align-items: flex-start; 
-                gap: 1rem; 
-                padding: 1.5rem; 
-            } 
-            .header-controls { align-self: flex-end; } 
-            .skills-grid { grid-template-columns: 1fr; } 
-            .profile-image { width: 120px; height: 120px; } /* Increased from 100px */
+        @media (max-width: 768px) {
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .name {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                font-size: 1.2rem;
+            }
+
+            .header-controls {
+                z-index: 1;
+            }
             
-            /* NEW MOBILE IMPROVEMENTS */
+            .skills-grid { grid-template-columns: 1fr; } 
+            .profile-image { width: 120px; height: 120px; } 
+            
             .left-panel { 
                 padding: 2rem 1.5rem; 
                 text-align: center;
                 min-height: auto;
             }
-            
+        
             .description { 
                 font-size: 1rem; 
                 margin-bottom: 1.5rem; 
@@ -361,51 +369,6 @@
             .timeline-item::before { 
                 left: -1.6rem; 
             }
-        }
-
-        /* NEW: Extra small screens */
-        @media (max-width: 480px) {
-            .header { 
-                padding: 1rem; 
-            }
-            
-            .name { 
-                font-size: 1.5rem; 
-            }
-            
-            .title { 
-                font-size: 1.8rem; 
-            }
-            
-            .left-panel { 
-                padding: 1.5rem 1rem; 
-            }
-            
-            .tabs-container { 
-                padding: 1.5rem 1rem; 
-            }
-            
-            .section-nav { 
-                padding: 1rem; 
-            }
-            
-            .nav-tabs { 
-                font-size: 0.85rem; 
-            }
-            .profile-image { 
-                width: 100px; 
-                height: 100px; 
-            }
-            
-            .modal-content { 
-                padding: 1.5rem 1rem; 
-            }
-            
-            .email-link { 
-                padding: 0.75rem 1.5rem; 
-                font-size: 1rem; 
-            }
-        }
     </style>
 </head>
 <body>
@@ -413,10 +376,23 @@
 
     <div class="container">
         <header class="header">
-            <div class="name">Aniruddha LBhide</div>
+            <div class="name">Aniruddha L Bhide</div>
             <div class="header-controls">
-                <div class="time-display" id="currentTime"></div>
-                <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">○</button>
+                <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+                    <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+
             </div>
         </header>
 
@@ -586,9 +562,6 @@
                 konamiCode: ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'],
             },
             state: {
-                isDeleting: false,
-                phraseIndex: 0,
-                charIndex: 0,
                 konamiProgress: 0,
                 currentTheme: 'light',
                 previousTheme: 'light',
@@ -600,8 +573,7 @@
                 this.cacheDOMElements();
                 this.initLoader();
                 this.initTheme();
-                this.initTime();
-                this.initTypewriter();
+
                 this.initScrollAnimations();
                 this.initModals();
                 this.initDynamicBackground();
@@ -614,8 +586,7 @@
                     loader: document.querySelector('.loader'),
                     container: document.querySelector('.container'),
                     themeBtn: document.getElementById('themeBtn'),
-                    currentTime: document.getElementById('currentTime'),
-                    typingText: document.getElementById('typingText'),
+
                     // Modal Elements
                     modalOverlay: document.getElementById('projectModal'),
                     modalContent: document.querySelector('.modal-content'),
@@ -659,24 +630,32 @@
                 if (theme === 'hacker' && this.state.currentTheme !== 'hacker') {
                     this.state.previousTheme = this.state.currentTheme;
                 }
+
                 document.documentElement.setAttribute('data-theme', theme);
                 localStorage.setItem('theme', theme);
                 this.state.currentTheme = theme;
-            },
-            initTime() {
-                const updateTime = () => {
-                    const now = new Date();
-                    const timeString = now.toLocaleTimeString('en-US', {
-                        timeZone: this.config.timeZone,
-                        hour12: false,
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
-                    });
-                    this.els.currentTime.textContent = `${timeString} IST`;
-                };
-                updateTime();
-                setInterval(updateTime, 1000);
+
+                const themeIcon = document.getElementById('themeIcon');
+
+                if (theme === 'dark') {
+                    themeIcon.innerHTML = `
+                        <path d="M21 12.79A9 9 0 0111.21 3a7 7 0 000 18 9 9 0 009.79-8.21z" />
+                    `;
+                    themeIcon.setAttribute('class', 'feather feather-moon');
+                } else {
+                    themeIcon.innerHTML = `
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    `;
+                    themeIcon.setAttribute('class', 'feather feather-sun');
+                }
             },
             initTypewriter() {
                 const type = () => {

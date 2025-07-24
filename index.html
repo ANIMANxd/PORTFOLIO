@@ -106,7 +106,7 @@
         .main-content { display: grid; grid-template-columns: 1fr 1.2fr; min-height: calc(100vh - 150px); }
         .left-panel { padding: 4rem 2rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
 
-        /* Profile Image Styles */
+        
         .profile-section { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 2rem; }
         .profile-image { 
             width: 180px; 
@@ -144,8 +144,7 @@
         @keyframes blink-pipe { 50% { opacity: 0; } }
 
         .description { font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 450px; }
-        .status { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; color: var(--muted); margin-top: 2rem; }
-        .status-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+        
         @keyframes blink { 0%, 50% { opacity: 1; transform: scale(1); } 51%, 100% { opacity: 0.4; transform: scale(0.9); } }
         .main-content { 
             display: grid; 
@@ -153,7 +152,7 @@
             min-height: calc(100vh - 150px); 
         }
 
-        /* Mobile touch improvements */
+       
         @media (hover: none) and (pointer: coarse) {
             .project:hover { 
                 background: transparent; 
@@ -414,10 +413,7 @@
                     I'm a 3rd year BCA - Honors student at Chanakya University, Bangalore, specializing in Software Engineering.
                     A Full Stack Developer and cybersecurity enthusiast, I enjoy building scalable applications, exploring system vulnerabilities, and developing secure, high-performance solutions.
                 </p>
-                <div class="status">
-                    <div class="status-dot"></div>
-                    Seeking Summer 2025 internships.
-                </div>
+                
             </div>
 
             <div class="right-panel">
@@ -699,10 +695,10 @@
                     let typeSpeed = this.state.isDeleting ? 50 : 120;
 
                     if (!this.state.isDeleting && this.state.charIndex === currentPhrase.length) {
-                        typeSpeed = 2000; // Pause at the end
+                        typeSpeed = 2000; 
                         this.state.isDeleting = true;
                     } else if (this.state.isDeleting && this.state.charIndex === 0) {
-                        typeSpeed = 500; // Pause before new sentence
+                        typeSpeed = 500; 
                         this.state.isDeleting = false;
                         this.state.phraseIndex = (this.state.phraseIndex + 1) % this.config.phrases.length;
                     }
@@ -871,7 +867,7 @@
                     if (this.config.konamiCode[this.state.konamiProgress] === e.key) {
                         this.state.konamiProgress++;
                     } else {
-                        // Reset if wrong key, unless it's the start of the sequence again
+                        
                         this.state.konamiProgress = (this.config.konamiCode[0] === e.key) ? 1 : 0;
                     }
 
